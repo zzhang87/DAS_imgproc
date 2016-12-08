@@ -7,19 +7,20 @@ def undistort(calib_path, in_path, out_path):
     camera_matrix = np.loadtxt(calib_path + 'camera_matrix.txt')
     dist_coefs = np.loadtxt(calib_path + 'dist_coefs.txt')
     
-    files = os.listdir(in_path)
+    files = []
+    for f in os.listdir(in_path):
+        if f.endswith('.JPG') or f.endswith('.jpg'):
+            files.append(f)
 
     out_path = out_path + 'undistort\\'
     if not os.path.isdir(out_path):
         os.mkdir(out_path)
 
     for f in files:
-        ext = f[-3:]
-        if ext == 'JPG' or ext == 'jpg':
-            print(f)
-            img = cv2.imread(in_path + f)
-            img = cv2.undistort(img, camera_matrix, dist_coefs)
-            cv2.imwrite(out_path + f, img)
+        print(f)
+        img = cv2.imread(in_path + f)
+        img = cv2.undistort(img, camera_matrix, dist_coefs)
+        cv2.imwrite(out_path + f, img)
             
     print('Undistortion finished!\n')
 
