@@ -59,7 +59,7 @@ if not os.path.isdir(dir_n):
 count_p = len(os.listdir(dir_p)) 
 count_n = len(os.listdir(dir_n))
 
-cv2.namedWindow("image")
+cv2.namedWindow("image", cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
 cv2.setMouseCallback("image", onMouse, 0)
 cv2.namedWindow("cropped")
 
@@ -80,18 +80,18 @@ for f in fn:
 			cv2.imshow("cropped", roi)
 
 		cv2.imshow("image", frame)
-		key = chr(cv2.waitKey(100))
-		if key == 'p':
+		key = cv2.waitKey(100)
+		if key == ord('p'):
 			cv2.imwrite(os.path.join(dir_p,"p_"+str(count_p)+".jpg"), roi)
 			count_p += 1
 			selection = [0, 0, 0, 0]
 			continue
-		if key == 'n':
+		if key == ord('n'):
 			cv2.imwrite(os.path.join(dir_n,"n_"+str(count_n)+".jpg"), roi)
 			count_n +=1
 			selection = [0, 0, 0, 0]
 			continue
-		if key == '\x1b':
+		if key == 27:
 			break
 
 	visited.append(f)

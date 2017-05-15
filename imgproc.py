@@ -21,9 +21,9 @@ def main():
     
     undistort.undistort(calib_path, in_path, out_path)
 
-    cluster.cluster(out_path+'undistort\\', out_path)
+    cluster.cluster(os.path.join(out_path, undistort), out_path)
     
-    find_contour.find_contour(out_path+'cluster\\', out_path)
+    find_contour.find_contour(os.path.join(out_path, cluster), out_path)
 
 if __name__ == "__main__":
     main()
